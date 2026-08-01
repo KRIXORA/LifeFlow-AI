@@ -1,0 +1,21 @@
+/* Responsive Breakpoints & Mobile Adaptation */
+@media (max-width: 768px) {
+    .app-sidebar {
+        transform: translateX(-100%);
+    }
+    .app-sidebar.mobile-open {
+        transform: translateX(0);
+    }
+    .app-main {
+        margin-left: 0;
+    }
+    .mobile-menu-btn {
+        display: block;
+    }
+    .search-bar-wrapper {
+        display: none;
+    }
+    .content-viewport {
+        padding: 16px;
+    }
+}

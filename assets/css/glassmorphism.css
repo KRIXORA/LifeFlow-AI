@@ -1,0 +1,21 @@
+/* Glassmorphism & Soft Lighting Utilities */
+.glass-panel {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border-glass);
+    box-shadow: var(--glass-shadow);
+}
+.glow-effect {
+    position: relative;
+}
+.glow-effect::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(135deg, var(--primary), transparent);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(8px);
+}

@@ -1,0 +1,8 @@
+/* Calendar Grid */
+.calendar-placeholder-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    min-height: 400px;
+}
