@@ -1,4 +1,18 @@
 /* Reusable Component Library */
+
+/* Shared header-actions row used across Planner, Settings, Analytics,
+   Calendar, Goals, and Habits view headers. Single canonical definition
+   (previously duplicated with slightly different rules in planner.css
+   and settings.css, which risked drifting out of sync). */
+.view-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
 .glass-card {
     background-color: var(--bg-glass);
     backdrop-filter: blur(16px);
