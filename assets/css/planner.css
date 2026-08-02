@@ -2,13 +2,6 @@
 /* Smart Planner Layout - Flexible Content Architecture              */
 /* ================================================================= */
 
-.view-header-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-}
-
 .planner-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
