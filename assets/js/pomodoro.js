@@ -275,6 +275,22 @@ class PomodoroModule {
                     if (typeof ComponentManager !== 'undefined') {
                         ComponentManager.showToast('Pomodoro interval finished!', 'success');
                     }
+
+                    // Fire a real browser notification too (not just the in-app
+                    // toast), so the user gets alerted even if they've switched
+                    // to another tab/app. Silently does nothing if permission
+                    // was never granted (no crash, no repeated prompts).
+                    if (typeof LifeFlowApp !== 'undefined' && typeof LifeFlowApp.triggerLocalNotification === 'function') {
+                        const notifTitle = this.isWorkSession ? 'Break time is over!' : 'Focus session complete!';
+                        const notifBody = this.isWorkSession
+                            ? 'Time to get back to deep work.'
+                            : `Great job on "${this.currentTask || 'your task'}"! Time for a short break.`;
+                        LifeFlowApp.triggerLocalNotification(notifTitle, notifBody);
+
+                        if (typeof ComponentManager !== 'undefined' && typeof ComponentManager.addNotification === 'function') {
+                            ComponentManager.addNotification(notifTitle, notifBody);
+                        }
+                    }
                     
                     this.isWorkSession = !this.isWorkSession;
                     this.timeLeft = this.isWorkSession ? this.workTime : this.breakTime;
