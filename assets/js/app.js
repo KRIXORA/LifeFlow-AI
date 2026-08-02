@@ -141,6 +141,12 @@ class LifeFlowApp {
         const clearNotificationsBtn = document.getElementById('clearNotificationsBtn');
         const notificationList = document.getElementById('notificationList');
 
+        // Load real stored notifications instead of the old static/fake
+        // hardcoded examples in index.html.
+        if (typeof ComponentManager !== 'undefined' && notificationList) {
+            ComponentManager.renderNotificationList();
+        }
+
         if (notificationBtn && notificationDropdown) {
             notificationBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -160,7 +166,9 @@ class LifeFlowApp {
             if (clearNotificationsBtn && notificationList) {
                 clearNotificationsBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    notificationList.innerHTML = `<div style="padding: 16px; text-align: center; font-size: 0.85rem; color: var(--text-secondary);">No new notifications</div>`;
+                    if (typeof ComponentManager !== 'undefined') {
+                        ComponentManager.clearNotifications();
+                    }
                     if (notificationBadge) notificationBadge.style.display = 'none';
                     if (notificationCountBadge) notificationCountBadge.textContent = '0 New';
                 });
@@ -275,5 +283,10 @@ class LifeFlowApp {
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new LifeFlowApp();
 });
+
+// Expose the class itself (not just the instance) so other classic
+// scripts — e.g. pomodoro.js — can call the static
+// LifeFlowApp.triggerLocalNotification() helper directly.
+window.LifeFlowApp = LifeFlowApp;
 
 export default LifeFlowApp;
