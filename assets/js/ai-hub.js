@@ -234,6 +234,39 @@ class AIHubModule {
         ComponentManager.showToast('AI response generated successfully.', 'success');
     }
 
+    /**
+     * Actually creates a task and saves it to dashboard_tasks storage,
+     * using the exact same schema DashboardModule uses, so the task
+     * really shows up on the Dashboard (not just a chat confirmation).
+     */
+    createRealTask(taskName) {
+        const tasks = StorageManager.get('dashboard_tasks', []);
+        const newTask = {
+            id: 'task_' + Date.now(),
+            text: taskName,
+            completed: false,
+            tag: 'AI Hub',
+            priority: 'High',
+            createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        };
+        tasks.unshift(newTask);
+        StorageManager.set('dashboard_tasks', tasks);
+
+        // If the Dashboard module is already mounted, refresh it live
+        // so the new task appears immediately without a page reload.
+        if (window.dashboardModule) {
+            window.dashboardModule.tasks = tasks;
+            if (typeof window.dashboardModule.renderTasks === 'function') {
+                window.dashboardModule.renderTasks();
+            }
+            if (typeof window.dashboardModule.updateDashboardMetrics === 'function') {
+                window.dashboardModule.updateDashboardMetrics();
+            }
+        }
+
+        return `✅ **Task Successfully Added:** "${taskName}" has been added to your Dashboard execution queue.`;
+    }
+
     generateSmartReply(query) {
         const lower = query.toLowerCase();
         const tasks = StorageManager.get('dashboard_tasks', []);
@@ -244,7 +277,7 @@ class AIHubModule {
         }
         if (lower.includes('add task') || lower.includes('create task') || lower.includes('todo')) {
             const taskName = query.replace(/add task[:]?|create task[:]?|todo[:]?/gi, '').trim() || 'New Workspace Task';
-            return `✅ **Task Successfully Added:** "${taskName}" has been added to your execution queue.`;
+            return this.createRealTask(taskName);
         }
         if (lower.includes('optimize') || lower.includes('schedule') || lower.includes('deep work')) {
             return `⚡ **Schedule Real-Time Optimization:** Peak focus intervals have been reserved for your high-impact deliverables today.`;
