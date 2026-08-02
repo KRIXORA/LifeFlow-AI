@@ -1,6 +1,6 @@
 /**
  * @module PlannerModule
- * @description Advanced Daily Time-Blocking & Intelligent Task Architecture Manager with Same-Slot Sortable, Date Filter, Pomodoro Timer, Batch Actions, and Progress Analytics
+ * @description Daily Time-Blocking & Task Planner with Same-Slot Sortable, Date Filter, Pomodoro Timer, Batch Actions, and Progress Analytics
  * @version 4.1.0
  */
 class PlannerModule {
@@ -252,7 +252,7 @@ class PlannerModule {
                 </div>
                 <div class="form-group" style="display: flex; flex-direction: column; gap: 6px;">
                     <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Subtasks (Comma separated)</label>
-                    <input type="text" id="modalTaskSubtasks" placeholder="e.g., Setup DB, Write tests" style="padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); font-size: 0.9rem;">
+                    <input type="text" id="modalTaskSubtasks" placeholder="e.g., Check email, Prepare notes" style="padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); font-size: 0.9rem;">
                 </div>
                 <button class="btn btn-primary" id="modalSaveTaskBtn" style="margin-top: 10px; width: 100%;">
                     <i class="fa-solid fa-plus"></i> Schedule Task
