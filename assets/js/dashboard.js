@@ -283,6 +283,9 @@ class DashboardModule {
                         this.playCompletionSound();
                         this.triggerConfetti();
                         ComponentManager.showToast('Deliverable marked as completed!', 'success');
+                        if (typeof ComponentManager.addNotification === 'function') {
+                            ComponentManager.addNotification('Task completed', `"${this.tasks[originalIndex].text}" marked as done.`);
+                        }
                     } else {
                         taskText.classList.remove('completed');
                     }
