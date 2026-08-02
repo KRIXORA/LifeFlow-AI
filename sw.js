@@ -1,5 +1,5 @@
 // sw.js - Service Worker for LifeFlow AI
-const CACHE_NAME = 'lifeflow-cache-v1';
+const CACHE_NAME = 'lifeflow-cache-v2';
 // Use relative paths (resolved against sw.js scope) so caching works
 // whether the app is deployed at the domain root or in a subfolder.
 const ASSETS_TO_CACHE = [
