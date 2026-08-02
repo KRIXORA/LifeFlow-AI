@@ -1,6 +1,6 @@
 /**
  * @module PomodoroModule
- * @description Enterprise-grade Pomodoro Focus Timer with Task Integration, Extended Ambient Sound Generator, Custom Intervals, and State Persistence.
+ * @description Pomodoro Focus Timer with Task Integration, Ambient Sound Generator, Custom Intervals, and State Persistence.
  * @version 3.2.0
  */
 class PomodoroModule {
@@ -56,7 +56,7 @@ class PomodoroModule {
                 <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 10px; flex-wrap: wrap;">
                     <div style="text-align: left; min-width: 180px; flex: 1;">
                         <h2 style="font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; word-break: break-word;"><i class="fa-solid fa-stopwatch"></i> Pomodoro Focus Hub</h2>
-                        <p class="date-subtitle" style="margin: 0; font-size: clamp(0.75rem, 1.5vw, 0.85rem);">Precision deep work & ambient focus architecture</p>
+                        <p class="date-subtitle" style="margin: 0; font-size: clamp(0.75rem, 1.5vw, 0.85rem);">Stay focused with timed work sessions</p>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center; flex-shrink: 0;">
                         <span class="badge soft-badge" id="pomodoroModeBadge" style="font-size: clamp(0.7rem, 1.2vw, 0.8rem);"><i class="fa-solid fa-bolt"></i> Deep Work</span>
@@ -341,7 +341,7 @@ class PomodoroModule {
         if (this.isRunning) {
             document.title = `(${display.textContent}) ${this.currentTask} | LifeFlow AI`;
         } else {
-            document.title = `LifeFlow AI - AI Productivity & Life Architecture Platform`;
+            document.title = `LifeFlow AI - Productivity & Life Planner`;
         }
     }
 
