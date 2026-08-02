@@ -91,6 +91,10 @@ class SettingsModule {
                     <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
                         <label for="aiApiKeyInput" style="font-size: 0.85rem; font-weight: 500;">Gemini API Key (Live AI Support)</label>
                         <input type="password" id="aiApiKeyInput" value="${this.sanitizeHTML(this.settings.aiApiKey || '')}" placeholder="AIzaSy..." style="width: 100%; max-width: 100%; box-sizing: border-box; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary);">
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin: 0; display: flex; align-items: flex-start; gap: 6px;">
+                            <i class="fa-solid fa-triangle-exclamation" style="margin-top: 2px; flex-shrink: 0; color: #d97706;"></i>
+                            <span>Stored only in this browser's local storage (not encrypted, not sent to us). Anyone with access to this device/browser could read it. Don't use this on a shared or public computer, and rotate the key if you ever share this device.</span>
+                        </p>
                     </div>
                     <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
                         <label for="portfolioStatusSelect" style="font-size: 0.85rem; font-weight: 500;">Career Availability Status</label>
