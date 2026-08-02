@@ -308,22 +308,10 @@
 }
 
 /* ==========================================
-   RESPONSIVE MEDIA QUERIES (Mobile & Tablet)
+   Sidebar/tablet responsive rules live in
+   responsive.css (single source of truth) to
+   avoid conflicting breakpoints/class names.
    ========================================== */
-@media (max-width: 1024px) {
-    .app-sidebar {
-        transform: translateX(-100%); /* Mobile par sidebar hide rahega by default */
-    }
-    .app-sidebar.show {
-        transform: translateX(0);
-    }
-    .app-main {
-        margin-left: 0;
-    }
-    .mobile-menu-btn {
-        display: block; /* Mobile par menu button dikhega */
-    }
-}
 
 @media (max-width: 768px) {
     .app-header {
