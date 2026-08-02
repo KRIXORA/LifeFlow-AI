@@ -1,0 +1,8 @@
+/* Smooth Micro-Animations */
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+}
+.pulse-animation {
+    animation: pulseGlow 3s infinite ease-in-out;
+}

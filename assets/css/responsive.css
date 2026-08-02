@@ -1,0 +1,157 @@
+/* ==========================================
+   Responsive Breakpoints & Mobile Adaptation
+   Single source of truth for responsive rules
+   across the whole app. JS always toggles the
+   '.mobile-open' class on the sidebar (see
+   app.js) — every breakpoint below must keep
+   using that exact class name to stay in sync
+   with the JS.
+   ========================================== */
+
+/* ---------- Tablets & small laptops (up to 1024px) ---------- */
+@media (max-width: 1024px) {
+    .app-sidebar {
+        transform: translateX(-100%);
+    }
+    .app-sidebar.mobile-open {
+        transform: translateX(0);
+        box-shadow: var(--shadow-lg);
+    }
+    .app-main {
+        margin-left: 0;
+    }
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    /* Dashboard hero card: stop clipping copy once the sidebar collapses */
+    .hero-content {
+        max-width: 70%;
+    }
+}
+
+/* ---------- Phones & narrow tablets (up to 768px) ---------- */
+@media (max-width: 768px) {
+    .app-sidebar {
+        width: 260px;
+    }
+
+    .content-viewport {
+        padding: 16px;
+    }
+
+    /* Dashboard */
+    .dashboard-grid {
+        gap: 16px;
+    }
+    .welcome-hero-card {
+        flex-direction: column;
+        align-items: flex-start;
+        text-align: left;
+        gap: 20px;
+    }
+    .hero-content {
+        max-width: 100%;
+    }
+    .hero-graphic {
+        align-self: center;
+    }
+
+    /* Calendar grid: keep 7 columns but tighten spacing/height */
+    .calendar-placeholder-grid {
+        gap: 6px;
+        min-height: unset;
+    }
+    .calendar-cell-item {
+        min-height: 64px !important;
+        padding: 6px !important;
+        font-size: 0.8rem;
+    }
+
+    /* Notification dropdown must never overflow the viewport */
+    #notificationDropdown {
+        width: calc(100vw - 32px) !important;
+        max-width: 320px;
+        right: -8px !important;
+    }
+
+    /* Modals: comfortable margins on small screens */
+    .modal-container {
+        margin: 12px;
+    }
+
+    /* Toasts: full width with safe side margins */
+    .toast-container {
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+    .toast {
+        width: 100%;
+    }
+
+    /* Section headers with action buttons stack cleanly */
+    .view-header-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+/* ---------- Small phones (up to 480px) ---------- */
+@media (max-width: 480px) {
+    .app-sidebar {
+        width: 85%;
+        max-width: 280px;
+    }
+    .app-header {
+        padding: 0 12px;
+    }
+    .header-title-wrapper h1 {
+        font-size: 1rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .hero-actions .btn {
+        width: 100%;
+    }
+    .content-viewport {
+        padding: 12px;
+    }
+
+    /* Calendar grid gets tighter still, day cells stay readable */
+    .calendar-placeholder-grid {
+        gap: 4px;
+    }
+    .calendar-cell-item {
+        min-height: 52px !important;
+        padding: 4px !important;
+        font-size: 0.72rem;
+    }
+
+    /* Stat cards / widgets: reduce inner padding a touch on tiny screens */
+    .glass-card {
+        padding: 18px;
+    }
+
+    .stat-value {
+        font-size: 1.6rem;
+    }
+
+    #notificationDropdown {
+        width: calc(100vw - 24px) !important;
+        right: -6px !important;
+    }
+}
+
+/* ---------- Very small phones (up to 360px) ---------- */
+@media (max-width: 360px) {
+    .header-title-wrapper .date-subtitle {
+        display: none;
+    }
+    .icon-btn, .theme-toggle-btn {
+        width: 34px;
+        height: 34px;
+    }
+}
