@@ -8,8 +8,8 @@ Only the latest version is supported with security updates.
 
 | Version | Supported |
 |---------|-----------|
-| 1.x.x   | ✅ Yes |
-| < 1.0   | ❌ No |
+| 2.x.x   | ✅ Yes |
+| 1.x.x   | ❌ No |
 
 ---
 
