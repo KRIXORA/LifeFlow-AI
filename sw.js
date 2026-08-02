@@ -1,37 +1,45 @@
 // sw.js - Service Worker for LifeFlow AI
 const CACHE_NAME = 'lifeflow-cache-v1';
+// Use relative paths (resolved against sw.js scope) so caching works
+// whether the app is deployed at the domain root or in a subfolder.
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/assets/css/variables.css',
-  '/assets/css/global.css',
-  '/assets/css/typography.css',
-  '/assets/css/layout.css',
-  '/assets/css/components.css',
-  '/assets/css/glassmorphism.css',
-  '/assets/css/animations.css',
-  '/assets/css/dashboard.css',
-  '/assets/css/planner.css',
-  '/assets/css/calendar.css',
-  '/assets/css/analytics.css',
-  '/assets/css/settings.css',
-  '/assets/css/responsive.css',
-  '/assets/js/storage.js',
-  '/assets/js/utils.js',
-  '/assets/js/theme.js',
-  '/assets/js/router.js',
-  '/assets/js/components.js',
-  '/assets/js/dashboard.js',
-  '/assets/js/planner.js',
-  '/assets/js/pomodoro.js',
-  '/assets/js/calendar.js',
-  '/assets/js/goals.js',
-  '/assets/js/habits.js',
-  '/assets/js/analytics.js',
-  '/assets/js/settings.js',
-  '/assets/js/ai-hub.js',
-  '/assets/js/app.js',
+  './',
+  './index.html',
+  './manifest.json',
+  './assets/css/variables.css',
+  './assets/css/global.css',
+  './assets/css/typography.css',
+  './assets/css/layout.css',
+  './assets/css/components.css',
+  './assets/css/glassmorphism.css',
+  './assets/css/animations.css',
+  './assets/css/dashboard.css',
+  './assets/css/planner.css',
+  './assets/css/calendar.css',
+  './assets/css/analytics.css',
+  './assets/css/settings.css',
+  './assets/css/responsive.css',
+  './assets/js/storage.js',
+  './assets/js/utils.js',
+  './assets/js/theme.js',
+  './assets/js/router.js',
+  './assets/js/components.js',
+  './assets/js/dashboard.js',
+  './assets/js/planner.js',
+  './assets/js/pomodoro.js',
+  './assets/js/calendar.js',
+  './assets/js/goals.js',
+  './assets/js/habits.js',
+  './assets/js/analytics.js',
+  './assets/js/settings.js',
+  './assets/js/ai-hub.js',
+  './assets/js/app.js'
+];
+
+// External CDN assets are cached separately with { mode: 'no-cors' }.
+// Cross-origin resources can fail opaque-response caching under strict
+// cache.addAll(), so we don't let them block the entire install step.
+const EXTERNAL_ASSETS = [
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap'
 ];
@@ -39,9 +47,18 @@ const ASSETS_TO_CACHE = [
 // 1. Install Event: Cache Static Assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Caching all static assets');
-      return cache.addAll(ASSETS_TO_CACHE);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      console.log('[Service Worker] Caching local static assets');
+      await cache.addAll(ASSETS_TO_CACHE);
+
+      console.log('[Service Worker] Caching external assets');
+      await Promise.all(
+        EXTERNAL_ASSETS.map((url) =>
+          cache.add(new Request(url, { mode: 'no-cors' })).catch((err) => {
+            console.warn('[Service Worker] Skipped external asset (offline or blocked):', url, err);
+          })
+        )
+      );
     })
   );
   self.skipWaiting();
@@ -92,8 +109,9 @@ self.addEventListener('fetch', (event) => {
         });
       }).catch(() => {
         // Fallback for HTML pages if offline
-        if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('/index.html');
+        const acceptHeader = event.request.headers.get('accept') || '';
+        if (acceptHeader.includes('text/html')) {
+          return caches.match('./index.html');
         }
       });
     })
