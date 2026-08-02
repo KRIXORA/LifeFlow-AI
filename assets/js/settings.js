@@ -53,7 +53,7 @@ class SettingsModule {
                     </div>
                     <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
                         <label for="portfolioNameInput" style="font-size: 0.85rem; font-weight: 500;">Your Name</label>
-                        <input type="text" id="portfolioNameInput" value="${this.sanitizeHTML(this.settings.developerName)}" placeholder="e.g., Priya Sharma" style="width: 100%; max-width: 100%; box-sizing: border-box; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary);">
+                        <input type="text" id="portfolioNameInput" value="${this.sanitizeHTML(this.settings.developerName)}" placeholder="e.g., Username" style="width: 100%; max-width: 100%; box-sizing: border-box; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary);">
                     </div>
                     <div class="form-group" style="display: flex; flex-direction: column; gap: 6px; width: 100%;">
                         <label for="portfolioEmailInput" style="font-size: 0.85rem; font-weight: 500;">Email (optional)</label>
