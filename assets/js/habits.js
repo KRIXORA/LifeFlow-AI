@@ -1,6 +1,6 @@
 /**
  * @module HabitsModule
- * @description Advanced Habits Matrix, Custom Categories & Streak Tracker Architecture Manager
+ * @description Habit Tracker with Custom Categories & Streak Tracking
  * @version 2.9.1
  */
 class HabitsModule {
@@ -36,7 +36,7 @@ class HabitsModule {
             this.renderDashboardWidget();
         } catch (error) {
             console.error('[HabitsModule] Initialization failed:', error);
-            ComponentManager.showToast('Failed to initialize Habits matrix.', 'error');
+            ComponentManager.showToast('Failed to load Habits.', 'error');
         }
     }
 
@@ -55,7 +55,7 @@ class HabitsModule {
             <div class="glass-card" style="display: flex; flex-direction: column; gap: 20px; width: 100%; max-width: 100%; box-sizing: border-box; overflow-x: hidden; padding: clamp(15px, 4vw, 25px);">
                 <div class="view-header-actions" style="margin-bottom: 0; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; width: 100%;">
                     <div style="min-width: 180px; flex: 1;">
-                        <h2 style="font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; word-break: break-word;">Habit Heatmaps & Consistency Matrix</h2>
+                        <h2 style="font-size: clamp(1.1rem, 2.5vw, 1.4rem); font-weight: 700; word-break: break-word;">Habit Tracker</h2>
                         <p class="date-subtitle" style="font-size: clamp(0.75rem, 1.5vw, 0.85rem);">Monitor daily consistency and track execution streaks</p>
                     </div>
                     <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; width: 100%;">
@@ -291,7 +291,7 @@ class HabitsModule {
     }
 
     /**
-     * Opens enterprise modal dialog for creating or editing a habit
+     * Opens the modal dialog for creating or editing a habit
      */
     openHabitModal(editIndex = null) {
         const isEditing = editIndex !== null;
@@ -300,11 +300,11 @@ class HabitsModule {
         const modalHTML = `
             <div style="display: flex; flex-direction: column; gap: 14px; width: 100%; box-sizing: border-box;">
                 <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                    <label for="modalHabitName" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Habit Title / Objective</label>
+                    <label for="modalHabitName" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Habit Name</label>
                     <input type="text" id="modalHabitName" value="${this.sanitizeHTML(targetHabit.name)}" placeholder="e.g., Drink 8 glasses of water" autocomplete="off" style="padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); width: 100%; box-sizing: border-box;">
                 </div>
                 <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                    <label for="modalHabitCategory" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Execution Category</label>
+                    <label for="modalHabitCategory" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Category</label>
                     <select id="modalHabitCategory" style="padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); width: 100%; box-sizing: border-box;">
                         ${this.categories.map(cat => `<option value="${cat.id}" ${targetHabit.category === cat.id ? 'selected' : ''}>${cat.label}</option>`).join('')}
                     </select>
@@ -316,13 +316,13 @@ class HabitsModule {
                     </div>
                 ` : ''}
                 <button class="btn btn-primary" id="modalSaveHabitBtn" style="margin-top: 6px; width: 100%; box-sizing: border-box;">
-                    <i class="fa-solid ${isEditing ? 'fa-floppy-disk' : 'fa-plus'}"></i> ${isEditing ? 'Update Habit' : 'Track New Habit'}
+                    <i class="fa-solid ${isEditing ? 'fa-floppy-disk' : 'fa-plus'}"></i> ${isEditing ? 'Update Habit' : 'Add Habit'}
                 </button>
             </div>
         `;
 
         window.componentManager = window.componentManager || new ComponentManager();
-        componentManager.openModal(isEditing ? 'Edit Habit Matrix' : 'Initialize New Habit Matrix', modalHTML);
+        componentManager.openModal(isEditing ? 'Edit Habit' : 'Add New Habit', modalHTML);
 
         const nameInput = document.getElementById('modalHabitName');
         if (nameInput) {
@@ -377,7 +377,7 @@ class HabitsModule {
                 completedToday: false
             };
             this.habits.push(newHabit);
-            ComponentManager.showToast('New habit successfully integrated into matrix!', 'success');
+            ComponentManager.showToast('Habit added!', 'success');
         }
 
         this.persistState();
