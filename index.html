@@ -6,9 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>LifeFlow AI - AI Productivity & Life Architecture Platform</title>
+    <title>LifeFlow AI - Productivity & Life Planner</title>
     
-    <meta name="description" content="LifeFlow AI is an intelligent productivity and life architecture platform designed to organize tasks, goals, habits, and personal growth with AI-powered tools.">
+    <meta name="description" content="LifeFlow AI is an intelligent productivity and life planner designed to organize tasks, goals, habits, and personal growth with AI-powered tools.">
     
     <meta name="keywords" content="LifeFlow AI, AI productivity, life planner, task management, goal tracking, productivity app">
     
@@ -77,7 +77,7 @@
     
     <meta name="twitter:title" content="LifeFlow AI - AI Productivity Platform">
     
-    <meta name="twitter:description" content="AI-powered productivity and life architecture platform by KRIXORA.">
+    <meta name="twitter:description" content="AI-powered productivity and life planner by KRIXORA.">
     
     <meta name="twitter:image" content="https://life-flow-ai-app.vercel.app/assets/images/preview.png">
     
@@ -194,23 +194,12 @@
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border-glass); padding-bottom: 8px;">
                                 <div style="display: flex; align-items: center; gap: 8px;">
                                     <h4 style="font-size: 0.95rem; font-weight: 600; margin: 0;">Notifications</h4>
-                                    <span class="badge soft-badge" id="notificationCountBadge" style="font-size: 0.7rem;">3 New</span>
+                                    <span class="badge soft-badge" id="notificationCountBadge" style="font-size: 0.7rem;"></span>
                                 </div>
                                 <button id="clearNotificationsBtn" style="background: none; border: none; font-size: 0.75rem; color: var(--text-secondary); cursor: pointer; padding: 2px 6px; border-radius: var(--radius-sm); transition: background 0.2s;" onmouseover="this.style.background='var(--bg-main)'" onmouseout="this.style.background='transparent'">Clear All</button>
                             </div>
                             <div id="notificationList" style="display: flex; flex-direction: column; gap: 8px; max-height: 250px; overflow-y: auto;">
-                                <div class="notification-item" style="padding: 8px; font-size: 0.85rem; border-radius: var(--radius-sm); background: var(--bg-main);">
-                                    <strong>AI Schedule Optimized</strong>
-                                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; margin-bottom: 0;">Your deep work blocks have been updated for today.</p>
-                                </div>
-                                <div class="notification-item" style="padding: 8px; font-size: 0.85rem; border-radius: var(--radius-sm); background: var(--bg-main);">
-                                    <strong>Milestone Reached</strong>
-                                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; margin-bottom: 0;">Glassmorphism UI design goals are 90% completed.</p>
-                                </div>
-                                <div class="notification-item" style="padding: 8px; font-size: 0.85rem; border-radius: var(--radius-sm); background: var(--bg-main);">
-                                    <strong>Habit Streak Alert</strong>
-                                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; margin-bottom: 0;">You're on a 21-day coding streak! Keep it up.</p>
-                                </div>
+                                <div style="padding: 16px; text-align: center; font-size: 0.85rem; color: var(--text-secondary);">No new notifications</div>
                             </div>
                         </div>
                     </div>
@@ -229,7 +218,7 @@
                         <div class="glass-card welcome-hero-card span-col-8">
                             <div class="hero-content">
                                 <span class="badge soft-badge"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Peak Performance Active</span>
-                                <h2>Good day, Architect. Your focus score is <span class="highlight-gradient">94%</span>.</h2>
+                                <h2>Good day. Your focus score is <span class="highlight-gradient">--%</span>.</h2>
                                 <p>You have 4 high-priority tasks remaining today. AI has optimized your schedule for deep work sessions.</p>
                                 <div class="hero-actions">
                                     <button class="btn btn-primary" onclick="router.navigateTo('pomodoro')"><i class="fa-solid fa-play" aria-hidden="true"></i> Start Focus Session</button>
@@ -279,7 +268,7 @@
                         <div class="glass-card span-col-4 widget-card">
                             <div class="widget-header">
                                 <h3 class="widget-title"><i class="fa-solid fa-fire" aria-hidden="true"></i> Habit Streaks</h3>
-                                <span class="badge streak-badge"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Active Matrix</span>
+                                <span class="badge streak-badge"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Active</span>
                             </div>
                             <div class="habits-mini-list" id="dashboardHabitsList"></div>
                         </div>
@@ -326,7 +315,7 @@
                 <section id="view-calendar" class="view-section">
                     <div class="glass-card">
                         <h2>Calendar & Schedule View</h2>
-                        <p>Interactive month, week, and day matrix with smart color coding.</p>
+                        <p>Browse your monthly schedule with smart color coding.</p>
                         <div class="calendar-placeholder-grid" id="calendarGrid"></div>
                     </div>
                 </section>
@@ -358,7 +347,7 @@
                             </div>
                         </div>
                         <div style="height: 180px; background: var(--bg-main); border-radius: var(--radius-md); animation: pulse 1.5s infinite; display: flex; align-items: center; justify-content: center; color: var(--text-secondary); font-size: 0.9rem;">
-                            <i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;" aria-hidden="true"></i> Loading Habits Matrix...
+                            <i class="fa-solid fa-spinner fa-spin" style="margin-right: 8px;" aria-hidden="true"></i> Loading Habits...
                         </div>
                     </div>
                 </section>
