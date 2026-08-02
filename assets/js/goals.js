@@ -1,6 +1,6 @@
 /**
  * @module GoalsModule
- * @description Advanced Long-Term Goals & Milestones Architecture Manager with Dynamic Categories, Drag-and-Drop, Filtering, and Editing
+ * @description Long-Term Goals & Milestones Manager with Dynamic Categories, Drag-and-Drop, Filtering, and Editing
  * @version 2.9.0
  */
 class GoalsModule {
@@ -35,7 +35,7 @@ class GoalsModule {
             this.initSortable();
         } catch (error) {
             console.error('[GoalsModule] Initialization failed:', error);
-            ComponentManager.showToast('Failed to initialize Goals matrix.', 'error');
+            ComponentManager.showToast('Failed to load Goals.', 'error');
         }
     }
 
@@ -271,11 +271,11 @@ class GoalsModule {
 
         const modalHTML = `
             <div class="form-group" style="display: flex; flex-direction: column; gap: 8px;">
-                <label for="modalGoalTitle" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Goal Objective</label>
+                <label for="modalGoalTitle" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Goal Title</label>
                 <input type="text" id="modalGoalTitle" value="${this.sanitizeHTML(targetGoal.title)}" placeholder="e.g., Read 12 books this year" autocomplete="off" style="padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); font-size: 0.9rem;">
             </div>
             <div class="form-group" style="display: flex; flex-direction: column; gap: 8px; margin-top: 12px;">
-                <label for="modalGoalCategory" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Category Tier</label>
+                <label for="modalGoalCategory" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Category</label>
                 <select id="modalGoalCategory" style="padding: 12px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); font-size: 0.9rem;">
                     ${this.categories.map(cat => `<option value="${cat.id}" ${targetGoal.category === cat.id ? 'selected' : ''}>${cat.label}</option>`).join('')}
                 </select>
@@ -291,7 +291,7 @@ class GoalsModule {
                 </div>
             ` : ''}
             <button class="btn btn-primary" id="modalSaveGoalBtn" style="margin-top: 20px; width: 100%;">
-                <i class="fa-solid ${isEditing ? 'fa-floppy-disk' : 'fa-plus'}"></i> ${isEditing ? 'Update Milestone' : 'Establish Milestone'}
+                <i class="fa-solid ${isEditing ? 'fa-floppy-disk' : 'fa-plus'}"></i> ${isEditing ? 'Update Goal' : 'Add Goal'}
             </button>
         `;
 
@@ -366,7 +366,7 @@ class GoalsModule {
             this.renderGoalsWrapper();
             this.renderGoals();
             this.initSortable();
-            ComponentManager.showToast('Milestone telemetry progress updated!', 'success');
+            ComponentManager.showToast('Goal progress updated!', 'success');
             if (this.goals[index].progress >= 100 && typeof ComponentManager.addNotification === 'function') {
                 ComponentManager.addNotification('Goal completed!', `"${this.goals[index].title}" has reached 100%.`);
             }
