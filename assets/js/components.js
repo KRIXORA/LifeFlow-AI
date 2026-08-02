@@ -46,5 +46,75 @@ class ComponentManager {
             setTimeout(() => toast.remove(), 300);
         }, 3000);
     }
+
+    // Static wrappers so ComponentManager.openModal()/closeModal() also work
+    // (not just the instance-based window.componentManager.openModal()).
+    // Ensures a single shared instance always exists, so callers can use
+    // either style safely without risk of "openModal is not a function".
+    static _getInstance() {
+        if (!window.componentManager) {
+            window.componentManager = new ComponentManager();
+        }
+        return window.componentManager;
+    }
+    static openModal(title, htmlContent) {
+        ComponentManager._getInstance().openModal(title, htmlContent);
+    }
+    static closeModal() {
+        ComponentManager._getInstance().closeModal();
+    }
+
+    // ---- Real Notification Center (bell icon dropdown) ----
+    // Replaces the old hardcoded/static notification list with one
+    // driven by actual app events (Pomodoro sessions, etc.).
+
+    static _escapeHTML(str) {
+        const temp = document.createElement('div');
+        temp.textContent = str || '';
+        return temp.innerHTML;
+    }
+
+    /** Add a real notification entry and refresh the bell dropdown. */
+    static addNotification(title, body) {
+        const list = StorageManager.get('app_notifications', []);
+        list.unshift({
+            title,
+            body,
+            timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+        });
+        // Keep it bounded so storage doesn't grow forever.
+        if (list.length > 20) list.length = 20;
+        StorageManager.set('app_notifications', list);
+        ComponentManager.renderNotificationList();
+    }
+
+    /** Re-render the bell dropdown + badges from stored notifications. */
+    static renderNotificationList() {
+        const list = StorageManager.get('app_notifications', []);
+        const container = document.getElementById('notificationList');
+        const badge = document.getElementById('notificationBadge');
+        const countBadge = document.getElementById('notificationCountBadge');
+
+        if (container) {
+            if (list.length === 0) {
+                container.innerHTML = `<div style="padding: 16px; text-align: center; font-size: 0.85rem; color: var(--text-secondary);">No new notifications</div>`;
+            } else {
+                container.innerHTML = list.map(n => `
+                    <div class="notification-item" style="padding: 8px; font-size: 0.85rem; border-radius: var(--radius-sm); background: var(--bg-main);">
+                        <strong>${ComponentManager._escapeHTML(n.title)}</strong>
+                        <p style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 2px; margin-bottom: 0;">${ComponentManager._escapeHTML(n.body)}</p>
+                    </div>
+                `).join('');
+            }
+        }
+        if (badge) badge.style.display = list.length > 0 ? 'inline-block' : 'none';
+        if (countBadge) countBadge.textContent = `${list.length} New`;
+    }
+
+    /** Clear all stored notifications and refresh the dropdown. */
+    static clearNotifications() {
+        StorageManager.set('app_notifications', []);
+        ComponentManager.renderNotificationList();
+    }
 }
 window.ComponentManager = ComponentManager;
