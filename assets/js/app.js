@@ -221,7 +221,7 @@ class LifeFlowApp {
             }, 1500);
         });
 
-        console.log('LifeFlow AI - Professional ES6 Module Architecture Initialized Successfully.');
+        console.log('LifeFlow AI initialized successfully.');
     }
 
     registerServiceWorker() {
