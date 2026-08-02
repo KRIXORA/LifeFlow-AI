@@ -1,6 +1,6 @@
 /**
  * @module DashboardModule
- * @description Enterprise-Grade Interactive Task Workflow with Search Filter, Dynamic Priority, Inline Editing, Confetti & Sound
+ * @description Interactive Task List with Search Filter, Dynamic Priority, Inline Editing, Confetti & Sound
  * @version 3.4.0
  */
 class DashboardModule {
@@ -171,7 +171,7 @@ class DashboardModule {
                 this.updateDashboardMetrics();
                 this.playCompletionSound();
                 this.triggerConfetti();
-                ComponentManager.showToast('All workflow deliverables marked completed!', 'success');
+                ComponentManager.showToast('All tasks marked as completed!', 'success');
             });
         }
 
@@ -182,7 +182,7 @@ class DashboardModule {
                 this.persistState();
                 this.renderTasks();
                 this.updateDashboardMetrics();
-                ComponentManager.showToast('Completed tasks cleared from workflow.', 'info');
+                ComponentManager.showToast('Completed tasks cleared.', 'info');
             });
         }
     }
@@ -306,7 +306,7 @@ class DashboardModule {
                         taskText.classList.add('completed');
                         this.playCompletionSound();
                         this.triggerConfetti();
-                        ComponentManager.showToast('Deliverable marked as completed!', 'success');
+                        ComponentManager.showToast('Task marked as completed!', 'success');
                         if (typeof ComponentManager.addNotification === 'function') {
                             ComponentManager.addNotification('Task completed', `"${this.tasks[originalIndex].text}" marked as done.`);
                         }
