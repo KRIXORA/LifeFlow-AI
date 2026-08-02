@@ -1,6 +1,6 @@
 /**
  * @module CalendarModule
- * @description Advanced Interactive Dynamic Monthly Matrix & Event Architecture Manager
+ * @description Interactive Monthly Calendar & Event Manager
  * @version 2.8.0
  */
 class CalendarModule {
@@ -56,7 +56,7 @@ class CalendarModule {
             this.bindStorageListener();
         } catch (error) {
             console.error('[CalendarModule] Initialization failed:', error);
-            ComponentManager.showToast('Failed to initialize Calendar matrix.', 'error');
+            ComponentManager.showToast('Failed to load Calendar.', 'error');
         }
     }
 
@@ -97,8 +97,8 @@ class CalendarModule {
             <div class="glass-card" style="display: flex; flex-direction: column; gap: 16px;">
                 <div class="view-header-actions" style="margin-bottom: 0; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: center;">
                     <div>
-                        <h2>Calendar & Schedule Matrix</h2>
-                        <p class="date-subtitle">Interactive monthly telemetry, categories, and milestone tracker</p>
+                        <h2>Calendar</h2>
+                        <p class="date-subtitle">Track your monthly schedule and events</p>
                     </div>
                     <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
                         <!-- Search Bar -->
@@ -109,7 +109,7 @@ class CalendarModule {
 
                         <!-- View Toggle Switch -->
                         <div style="display: flex; background: var(--bg-main); border: 1px solid var(--border-glass); border-radius: var(--radius-md); padding: 2px;">
-                            <button class="btn ${this.viewMode === 'grid' ? 'btn-primary' : 'btn-secondary'}" id="calViewGridBtn" title="Matrix Grid View" style="padding: 4px 8px; font-size: 0.8rem;"><i class="fa-solid fa-table-cells"></i></button>
+                            <button class="btn ${this.viewMode === 'grid' ? 'btn-primary' : 'btn-secondary'}" id="calViewGridBtn" title="Grid View" style="padding: 4px 8px; font-size: 0.8rem;"><i class="fa-solid fa-table-cells"></i></button>
                             <button class="btn ${this.viewMode === 'agenda' ? 'btn-primary' : 'btn-secondary'}" id="calViewAgendaBtn" title="Agenda List View" style="padding: 4px 8px; font-size: 0.8rem;"><i class="fa-solid fa-list-check"></i></button>
                         </div>
 
@@ -225,7 +225,7 @@ class CalendarModule {
     }
 
     /**
-     * Renders full month matrix grid dynamically based on real-time calendar math
+     * Renders the full month grid dynamically based on the current calendar
      */
     renderCalendarGrid() {
         const container = document.getElementById('calendarContentContainer');
@@ -423,11 +423,11 @@ class CalendarModule {
 
         StorageManager.set(this.storageKey, this.events);
         this.renderMainContent();
-        ComponentManager.showToast('Milestone matrix shifted successfully!', 'success');
+        ComponentManager.showToast('Event moved successfully!', 'success');
     }
 
     /**
-     * Opens an enterprise-grade modal dialog for managing multiple events/tasks per day with Category selection
+     * Opens a modal dialog for managing multiple events/tasks per day with Category selection
      */
     openEventModal(dateStr, dateNum, currentEventsList) {
         const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -454,7 +454,7 @@ class CalendarModule {
         const modalHTML = `
             <div style="display: flex; flex-direction: column; gap: 14px;">
                 <div style="display: flex; flex-direction: column; gap: 8px;">
-                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Scheduled Events Matrix (${currentMonthName} ${dateNum}, ${this.currentYear})</label>
+                    <label style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Scheduled Events (${currentMonthName} ${dateNum}, ${this.currentYear})</label>
                     <div id="modalEventsListContainer" style="display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto;">
                         ${renderEventsListHTML()}
                     </div>
@@ -463,7 +463,7 @@ class CalendarModule {
                 <div style="border-top: 1px solid var(--border-glass); padding-top: 12px; display: flex; flex-direction: column; gap: 8px;">
                     <label for="modalNewEventInput" style="font-weight: 600; font-size: 0.85rem; color: var(--text-primary);">Add New Milestone / Event</label>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <input type="text" id="modalNewEventInput" placeholder="e.g., Enterprise Product Launch & Review" autocomplete="off" style="flex: 1; min-width: 180px; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); font-size: 0.85rem;">
+                        <input type="text" id="modalNewEventInput" placeholder="e.g., Dentist appointment" autocomplete="off" style="flex: 1; min-width: 180px; padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); font-size: 0.85rem;">
                         <select id="modalNewEventCategory" class="form-control" style="padding: 10px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); background: var(--bg-main); color: var(--text-primary); font-size: 0.85rem;">
                             ${Object.entries(this.categories).map(([key, val]) => `<option value="${key}">${val.label}</option>`).join('')}
                         </select>
@@ -560,7 +560,7 @@ class CalendarModule {
             StorageManager.set(this.storageKey, this.events);
             window.componentManager.closeModal();
             this.renderMainContent();
-            ComponentManager.showToast('All events cleared from matrix for this date.', 'info');
+            ComponentManager.showToast('All events cleared for this date.', 'info');
         });
     }
 
