@@ -1,6 +1,6 @@
 /**
  * @module AnalyticsModule
- * @description Advanced Productivity & Focus Telemetry Architecture Manager with Target Management & Visual Breakdown
+ * @description Productivity & Focus Analytics with Target Management & Visual Breakdown
  * @version 2.9.0
  */
 class AnalyticsModule {
@@ -118,7 +118,7 @@ class AnalyticsModule {
             this.renderAnalyticsView();
         } catch (error) {
             console.error('[AnalyticsModule] Initialization failed:', error);
-            ComponentManager.showToast('Failed to initialize Productivity Analytics matrix.', 'error');
+            ComponentManager.showToast('Failed to load Analytics.', 'error');
         }
     }
 
@@ -184,7 +184,7 @@ class AnalyticsModule {
                     <div style="width: 100%; height: 6px; background: var(--border-glass); border-radius: var(--radius-full); overflow: hidden; margin-top: 8px;">
                         <div style="width: ${this.metrics.taskCompletionRate}%; height: 100%; background: var(--success); border-radius: var(--radius-full); transition: width 0.5s ease;"></div>
                     </div>
-                    <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 6px;">Based on ${this.metrics.completedTasksCount} completed workflow tasks</span>
+                    <span style="font-size: 0.8rem; color: var(--text-secondary); display: block; margin-top: 6px;">Based on ${this.metrics.completedTasksCount} completed tasks</span>
                 </div>
 
                 <!-- System Energy Index Card -->
@@ -295,7 +295,7 @@ class AnalyticsModule {
         document.body.appendChild(a);
         a.click();
         a.remove();
-        ComponentManager.showToast('Analytics telemetry report exported as CSV.', 'success');
+        ComponentManager.showToast('Analytics exported as CSV.', 'success');
     }
 
     persistState() {
