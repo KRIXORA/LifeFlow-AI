@@ -1,7 +1,7 @@
 {
-  "name": "LifeFlow AI - Productivity & Life Architecture",
+  "name": "LifeFlow AI - Productivity & Life Planner",
   "short_name": "LifeFlow AI",
-  "description": "An advanced AI-powered productivity hub, life architecture planner, and personal dashboard.",
+  "description": "An AI-powered productivity hub, life planner, and personal dashboard.",
  "start_url": "./",
 "scope": "./",
   "display": "standalone",
@@ -26,12 +26,12 @@
   "shortcuts": [
     {
       "name": "Dashboard",
-      "url": "/#dashboard",
+      "url": "./#dashboard",
       "description": "Open LifeFlow AI Dashboard"
     },
     {
       "name": "Planner",
-      "url": "/#planner",
+      "url": "./#planner",
       "description": "Manage tasks and daily planner"
     }
   ]
