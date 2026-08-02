@@ -393,6 +393,9 @@ class HabitsModule {
         if (this.habits[index].completedToday) {
             this.habits[index].streak += 1;
             ComponentManager.showToast('Habit completed for today! Streak increased.', 'success');
+            if (typeof ComponentManager.addNotification === 'function') {
+                ComponentManager.addNotification('Habit streak up!', `"${this.habits[index].name}" — ${this.habits[index].streak} day streak.`);
+            }
         } else {
             this.habits[index].streak = Math.max(0, this.habits[index].streak - 1);
             ComponentManager.showToast('Habit status reverted.', 'info');
