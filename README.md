@@ -2,7 +2,7 @@
 
 # 🚀 LifeFlow AI
 
-### AI Productivity & Life Architecture Platform
+### AI Productivity & Life Planner
 
 Build Better Habits • Achieve Goals • Stay Productive • Organize Your Life
 
@@ -52,19 +52,7 @@ Whether you're a student, freelancer, developer, or professional, LifeFlow AI pr
 
 # 🖼️ Preview
 
-> Add screenshots inside `assets/images/`
-
-### Dashboard
-
-![Dashboard](assets/images/dashboard.png)
-
-### Planner
-
-![Planner](assets/images/planner.png)
-
-### Analytics
-
-![Analytics](assets/images/analytics.png)
+![LifeFlow AI Preview](assets/images/preview.png)
 
 ---
 
@@ -164,15 +152,12 @@ LifeFlow AI works like a native application.
 
 # 🔮 Future Roadmap
 
-- 🤖 AI Chat Assistant
 - ☁ Cloud Synchronization
 - 🔐 Authentication
 - 👥 Team Workspace
 - 📱 Android App
 - 🍎 iOS App
-- 📊 AI Productivity Reports
-- 🔔 Smart Notifications
-- 🎤 Voice Commands
+- 📊 AI-generated Analytics Reports
 - 📅 Google Calendar Sync
 - 🧩 Plugin System
 - 🌍 Multi-language Support
@@ -211,7 +196,7 @@ Open Pull Request
 |---------|----------|
 | UI Design | ██████████ 100% |
 | Core Features | █████████░ 90% |
-| AI Features | ████░░░░░░ 40% |
+| AI Features | ████████░░ 80% |
 | PWA | ██████████ 100% |
 | Optimization | ████████░░ 80% |
 
