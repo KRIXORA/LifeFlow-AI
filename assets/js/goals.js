@@ -367,6 +367,9 @@ class GoalsModule {
             this.renderGoals();
             this.initSortable();
             ComponentManager.showToast('Milestone telemetry progress updated!', 'success');
+            if (this.goals[index].progress >= 100 && typeof ComponentManager.addNotification === 'function') {
+                ComponentManager.addNotification('Goal completed! 🎯', `"${this.goals[index].title}" has reached 100%.`);
+            }
         }
     }
 
