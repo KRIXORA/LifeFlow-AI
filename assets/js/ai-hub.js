@@ -1,6 +1,6 @@
 /**
  * @module AIHubModule
- * @description Enterprise-Grade AI Assistant & Intelligent Execution Engine with Context Injection, Markdown Parsing, and Voice Input
+ * @description AI Assistant with Context-Aware Replies, Markdown Parsing, and Voice Input
  * @version 3.5.0
  */
 class AIHubModule {
@@ -63,7 +63,7 @@ class AIHubModule {
                 <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;" id="quickPromptChips">
                     <button class="btn btn-secondary ai-chip" data-prompt="Analyze my current workspace tasks and suggest priorities" style="font-size: 0.75rem; padding: 6px 12px; border-radius: var(--radius-full);"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Analyze Workspace</button>
                     <button class="btn btn-secondary ai-chip" data-prompt="Generate an AI Morning Executive Brief" style="font-size: 0.75rem; padding: 6px 12px; border-radius: var(--radius-full);"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Morning Brief</button>
-                    <button class="btn btn-secondary ai-chip" data-prompt="Add a high priority task: Review Project Architecture" style="font-size: 0.75rem; padding: 6px 12px; border-radius: var(--radius-full);"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add Task</button>
+                    <button class="btn btn-secondary ai-chip" data-prompt="Add a high priority task: Finish weekly report" style="font-size: 0.75rem; padding: 6px 12px; border-radius: var(--radius-full);"><i class="fa-solid fa-plus" aria-hidden="true"></i> Add Task</button>
                     <button class="btn btn-secondary ai-chip" data-prompt="What can you do for me?" style="font-size: 0.75rem; padding: 6px 12px; border-radius: var(--radius-full);"><i class="fa-solid fa-lightbulb" aria-hidden="true"></i> Help & Capabilities</button>
                 </div>
 
@@ -272,17 +272,17 @@ class AIHubModule {
         const pendingCount = tasks.filter(t => !t.completed).length;
 
         if (lower.includes('workspace') || lower.includes('analyze') || lower.includes('priorities')) {
-            return `**Workspace Intelligence Analysis:**\n- You currently have **${pendingCount} pending tasks** in your execution queue.\n- Recommendation: Focus on high-priority architectural deliverables during your peak energy hours (10 AM - 1 PM).`;
+            return `**Task Overview:**\n- You currently have **${pendingCount} pending tasks**.\n- Tip: Try tackling your highest-priority task during your peak energy hours (10 AM - 1 PM).`;
         }
         if (lower.includes('add task') || lower.includes('create task') || lower.includes('todo')) {
             const taskName = query.replace(/add task[:]?|create task[:]?|todo[:]?/gi, '').trim() || 'New Workspace Task';
             return this.createRealTask(taskName);
         }
         if (lower.includes('optimize') || lower.includes('schedule') || lower.includes('deep work')) {
-            return `**Schedule Real-Time Optimization:** Peak focus intervals have been reserved for your high-impact deliverables today.`;
+            return `**Focus Tip:** Try blocking out your next open time slot for uninterrupted work on your top task.`;
         }
         if (lower.includes('brief') || lower.includes('stats') || lower.includes('report')) {
-            return `**Executive Performance Report:**\n- **Productivity Index:** 94% (Optimal)\n- **Pending Workflow Items:** ${pendingCount}\n- **System Status:** Fully synchronized.`;
+            return `**Your Summary:**\n- **Pending tasks:** ${pendingCount}`;
         }
         if (lower.includes('help') || lower.includes('capabilities')) {
             return `**I can assist you with:**\n- Analyzing active workspace tasks & habits\n- Generating executive briefs\n- Optimizing daily routines\n*(Tip: Add your Gemini API Key in Settings for live cloud intelligence!)*`;
