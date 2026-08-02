@@ -2,15 +2,6 @@
 /* Settings Module Component Styles - settings.css                  */
 /* ================================================================= */
 
-.view-header-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 24px;
-}
-
 .date-subtitle {
   font-size: 0.875rem;
   color: var(--text-secondary, #64748b);
