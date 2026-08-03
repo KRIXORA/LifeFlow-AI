@@ -480,6 +480,14 @@ class PlannerModule {
     }
 
     startPomodoroTimer(taskTitle, durationStr) {
+        // Guard against stacking multiple background timers if one is
+        // already running from a previous "Timer" click that wasn't
+        // properly closed.
+        if (this._activePlannerTimerInterval) {
+            clearInterval(this._activePlannerTimerInterval);
+            this._activePlannerTimerInterval = null;
+        }
+
         let durationMinutes = 25; 
         if (durationStr) {
             const match = durationStr.match(/(\d+)/);
@@ -524,6 +532,7 @@ class PlannerModule {
 
             if (totalSeconds <= 0) {
                 clearInterval(timerInterval);
+                this._activePlannerTimerInterval = null;
                 if (typeof ComponentManager !== 'undefined' && ComponentManager.showToast) {
                     ComponentManager.showToast('Pomodoro session completed!', 'success');
                 } else {
@@ -531,6 +540,50 @@ class PlannerModule {
                 }
             }
         }, 1000);
+        this._activePlannerTimerInterval = timerInterval;
+
+        // Make sure this timer ALWAYS stops the moment the modal goes away —
+        // no matter how it's closed (the custom "Close" button below, the
+        // modal's native X icon, clicking outside the modal, or Escape).
+        // Previously only the custom "Close" button cleared the interval,
+        // so closing the modal any other way left it silently ticking in
+        // the background forever, even though the UI looked closed/stopped.
+        const stopBackgroundTimer = () => {
+            clearInterval(timerInterval);
+            this._activePlannerTimerInterval = null;
+        };
+
+        const nativeCloseBtn = document.getElementById('modalCloseBtn');
+        if (nativeCloseBtn) {
+            nativeCloseBtn.addEventListener('click', stopBackgroundTimer, { once: true });
+        }
+        const overlayEl = document.getElementById('modalOverlay');
+        if (overlayEl) {
+            overlayEl.addEventListener('click', (e) => {
+                if (e.target === overlayEl) stopBackgroundTimer();
+            }, { once: true });
+        }
+        // Also watch the modal for being hidden/removed by any other means
+        // (e.g. a future code path calling closeModal() programmatically).
+        if (overlayEl) {
+            const observer = new MutationObserver(() => {
+                if (!overlayEl.classList.contains('active') || !document.body.contains(overlayEl)) {
+                    stopBackgroundTimer();
+                    observer.disconnect();
+                }
+            });
+            observer.observe(overlayEl, { attributes: true, attributeFilter: ['class'] });
+        }
+        const fallbackModalEl = document.getElementById('fallbackPomodoroModal');
+        if (fallbackModalEl) {
+            const fallbackObserver = new MutationObserver(() => {
+                if (!document.body.contains(fallbackModalEl)) {
+                    stopBackgroundTimer();
+                    fallbackObserver.disconnect();
+                }
+            });
+            fallbackObserver.observe(document.body, { childList: true });
+        }
 
         setTimeout(() => {
             const toggleBtn = document.getElementById('pomodoroToggleBtn');
@@ -539,6 +592,7 @@ class PlannerModule {
                 toggleBtn.addEventListener('click', () => {
                     if (isRunning) {
                         clearInterval(timerInterval);
+                        this._activePlannerTimerInterval = null;
                         toggleBtn.textContent = 'Resume';
                         isRunning = false;
                     } else {
@@ -547,6 +601,7 @@ class PlannerModule {
                             const display = document.getElementById('pomodoroDisplay');
                             if (display) display.textContent = this.formatTime(totalSeconds);
                         }, 1000);
+                        this._activePlannerTimerInterval = timerInterval;
                         toggleBtn.textContent = 'Pause';
                         isRunning = true;
                     }
@@ -557,6 +612,7 @@ class PlannerModule {
             if (closeBtn) {
                 closeBtn.addEventListener('click', () => {
                     clearInterval(timerInterval);
+                    this._activePlannerTimerInterval = null;
                     const fallback = document.getElementById('fallbackPomodoroModal');
                     if (fallback) {
                         fallback.remove();
