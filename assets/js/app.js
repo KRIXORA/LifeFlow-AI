@@ -221,15 +221,14 @@ class LifeFlowApp {
             }, 1500);
         });
 
-        console.log('LifeFlow AI initialized successfully.');
+        
     }
 
     registerServiceWorker() {
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('ServiceWorker registration successful:', reg.scope))
-                    .catch(err => console.log('ServiceWorker registration failed:', err));
+                    .catch(err => console.error('ServiceWorker registration failed:', err));
             });
         }
     }
@@ -241,7 +240,6 @@ class LifeFlowApp {
                 this._notificationPromptShown = true;
                 const permission = await Notification.requestPermission();
                 if (permission === 'granted') {
-                    console.log('Notification permission granted.');
                     this.subscribeUserToPush();
                 } else {
                     console.warn('Notification permission denied.');
@@ -252,8 +250,7 @@ class LifeFlowApp {
 
     async subscribeUserToPush() {
         try {
-            const registration = await navigator.serviceWorker.ready;
-            console.log('Service Worker is ready for Push Notifications');
+            await navigator.serviceWorker.ready;
         } catch (error) {
             console.error('Failed to subscribe to push notifications:', error);
         }
@@ -264,7 +261,7 @@ class LifeFlowApp {
             navigator.serviceWorker.ready.then((registration) => {
                 registration.showNotification(title, {
                     body: body,
-                    icon: 'assets/icons/icon-192.png',
+                    icon: 'assets/icons/icon-192.png?v=3',
                     vibrate: [200, 100, 200]
                 });
             });
