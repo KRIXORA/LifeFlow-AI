@@ -5,12 +5,12 @@ const CACHE_NAME = 'lifeflow-cache-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './manifest.json',
-  './assets/icons/favicon.ico',
-  './assets/icons/icon-192.png',
-  './assets/icons/icon-512.png',
-  './assets/icons/maskable-icon-512.png',
-  './assets/icons/apple-touch-icon.png',
+  './manifest.json?v=3',
+  './assets/icons/favicon.ico?v=3',
+  './assets/icons/icon-192.png?v=3',
+  './assets/icons/icon-512.png?v=3',
+  './assets/icons/maskable-icon-512.png?v=3',
+  './assets/icons/apple-touch-icon.png?v=3',
   './assets/css/variables.css',
   './assets/css/global.css',
   './assets/css/typography.css',
@@ -53,10 +53,8 @@ const EXTERNAL_ASSETS = [
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(async (cache) => {
-      console.log('[Service Worker] Caching local static assets');
       await cache.addAll(ASSETS_TO_CACHE);
 
-      console.log('[Service Worker] Caching external assets');
       await Promise.all(
         EXTERNAL_ASSETS.map((url) =>
           cache.add(new Request(url, { mode: 'no-cors' })).catch((err) => {
@@ -76,7 +74,6 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
-            console.log('[Service Worker] Removing old cache:', key);
             return caches.delete(key);
           }
         })
@@ -125,7 +122,7 @@ self.addEventListener('fetch', (event) => {
 
 // 4. Web Push Notification Event Listener
 self.addEventListener('push', (event) => {
-  let data = { title: 'LifeFlow AI Reminder', body: 'Time to boost your focus!', icon: 'assets/icons/icon-192.png' };
+  let data = { title: 'LifeFlow AI Reminder', body: 'Time to boost your focus!', icon: 'assets/icons/icon-192.png?v=3' };
   
   if (event.data) {
     try {
